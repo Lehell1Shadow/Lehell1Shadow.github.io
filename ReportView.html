@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Reporteador</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <script src="/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="/styles/kendo.common.min.css" rel="stylesheet" id="common-css" />
+    <link href="/styles//kendo.flat.min.css" rel="stylesheet" id="skin-css" />
+
+    <script src="/bower_components/telerik/stringResources.es-MX.js"></script>
+    <script src="/api/reports/resources/js/telerikReportViewer"></script>
+
+    <style>
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            margin: 5px;
+        }
+
+        #reportViewer1 {
+            position: absolute;
+            left: 5px;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            overflow: hidden;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div id="reportViewer1">
+        Cargando...
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var reportName = getQuerystring("rpt");
+            var sucursalId = getQuerystring("sId");
+            var title = getQuerystring("title");
+
+            title = decodeURI(title);
+            reportName = reportName + '.trdx';
+
+            document.title = "Reporteador - [" + title + "]";
+
+            $("#reportViewer1")
+                .telerik_ReportViewer({
+                    serviceUrl: "api/reports/",
+                    reportSource: {
+                        report: reportName,
+                        // Parameters name value dictionary
+                        parameters: { SucursalId: sucursalId }
+                    },
+                    viewMode: telerikReportViewer.ViewModes.INTERACTIVE,
+                    scaleMode: telerikReportViewer.ScaleModes.SPECIFIC,
+                    scale: 1.0,
+                    enableAccessibility: false,
+                    sendEmail: { enabled: false }
+                });
+        });
+
+        function getQuerystring(key, default_) {
+
+            if (default_ == null)
+                default_ = "";
+
+            key = key.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+
+            var regex = new RegExp("[\\?&]" + key + "=([^&#]*)");
+            var qs = regex.exec(window.location.href);
+
+            if (qs == null)
+                return default_;
+            else
+                return qs[1];
+        }
+    </script>
+
+</body>
+</html>

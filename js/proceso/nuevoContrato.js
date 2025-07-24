@@ -1,0 +1,871 @@
+'use strict';
+$(document).ready(function () {    
+
+    var serie = $("#serie_list").val()
+    obtenerListaCreditos(serie);
+
+    $("#serie_list").change(function () {
+        var value = $(this).val()
+
+        if (value == 0) {
+            $("#folio").val("0");
+            $("#folio").prop("readonly", true);
+        }
+        else {
+            var automatico = ($(this).find(':selected').attr('data-automatico') === 'True');
+            if (!automatico) {
+                $("#folio").val("");
+                $("#folio").prop("readonly", false);
+            }
+            else {
+                $("#folio").val("0");
+                $("#folio").prop("readonly", true);
+            }
+        }
+        obtenerListaCreditos(value);
+    });
+    
+    $("#tipo_creditos_list").change(function () {
+        var value = $(this).val();
+
+        if (value == 0) {
+            $("#plazo").val("");
+            $("#interes").val("");
+            $("#montoInicial").val("");
+        }
+        else {
+            var periodicidad = $(this).find(':selected').attr('data-periodicidad');
+            var plazo = $(this).find(':selected').attr('data-plazo');
+            var interes = $(this).find(':selected').attr('data-interes');
+            var montoInicial = $(this).find(':selected').attr('data-monto-inicial');
+
+            $("#periodicidad").val(periodicidad);
+            $("#plazo").val(plazo);
+            $("#interes").val(interes);
+            $("#montoInicial").val(montoInicial);
+        }
+
+        $("#montoSolicitado").val("");
+        limpiarAmortizacion();
+    });
+
+    $("#txtGrupo").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: rootUrl + '/Procesos/Contrato/BuscarGrupo',
+                dataType: "json",
+                data: {
+                    q: request.term
+                },
+                success: function (data) {
+                    //console.log(data);
+                    response($.map(data.data, function (item) {
+                        return {
+                            label: item.clave + "-" + item.descripcion,
+                            value: item.clave + "-" + item.descripcion,
+                            id: item.grupo_Id,
+                            clave: item.clave,                            
+                        };
+                    }));
+                }
+            });
+        },
+        minLength: 4,
+        select: function (event, ui) {
+            $("#grupo_Id").val(ui.item.id);
+            $("#clave_Grupo").val(ui.item.clave);
+            $("#txtGrupo").prop("readonly", true);
+            //$("#txtGrupo").val(ui.item.value);
+        }
+    });
+
+    $(".nuevoContrato").click(function () {
+        location.href = rootUrl + '/Procesos/Contrato/Nuevo';
+    });
+    $("#btnLimpiarGrupo").click(function () {
+        $("#grupo_Id").val("0");
+        $("#clave_Grupo").val("");
+        $("#txtGrupo").val("");
+        $("#txtGrupo").prop("readonly", false);
+        $("#txtGrupo").focus();
+    });
+
+    //Revision Cliente
+    $("#btnRevisionCliente").click(function () {
+        var flag = true;
+        var mensaje = "";
+        var clienteId = $("#cliente_Id").val();
+        var claveCliente = $("#clave_Cliente").val();
+        var tipoCreditoId = $("#tipo_creditos_list").val();
+
+        if (tipoCreditoId == "0") {
+            mensaje += "*Favor de seleccionar un tipo de crédito\n";
+            flag = false;
+        }
+
+        if (clienteId == "0") {
+            mensaje += "*Favor de seleccionar un cliente\n";
+            flag = false;
+        }
+
+        if (flag == true)
+            revisionCliente(claveCliente, tipoCreditoId);
+        else
+            swal("Mensaje", mensaje, "warning");
+    });
+    $("#btnLimpiarCliente").click(function () {
+        limpiarCliente();
+        limpiarAmortizacion();
+    });
+    $("#txtCliente").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: rootUrl + '/Procesos/Contrato/BuscarPersona',
+                dataType: "json",
+                data: {
+                    q: request.term
+                },
+                beforeSend: function (xhr) {
+                    $('#loaderCliente').show();
+                },
+                success: function (data) {
+                    //console.log(data);
+                    response($.map(data.data, function (item) {
+                        return {
+                            label: item.clave + "-" + item.nombre_Completo,
+                            value: item.clave + "-" + item.nombre_Completo,
+                            id: item.persona_Id,
+                            clave: item.clave,                            
+                        };
+                    }));
+
+                    $('#loaderCliente').hide();
+                }
+            });
+        },
+        minLength: 5,
+        select: function (event, ui) {
+            $("#cliente_Id").val(ui.item.id);
+            $("#clave_Cliente").val(ui.item.clave);
+            $("#txtCliente").prop("readonly", true);
+        }
+    });
+
+    //Revision Aval
+    $("#btnRevisionAval").click(function () {
+        var flag = true;
+        var mensaje = "";
+        var clienteId = $("#cliente_Id").val();
+        var avalId = $("#aval_Id").val();
+        var claveAval = $("#clave_Aval").val();
+
+        if (clienteId == "0") {
+            mensaje += "*Favor de seleccionar un cliente\n";
+            flag = false;
+        }
+
+        if (avalId == "0") {
+            mensaje += "*Favor de seleccionar un aval\n";
+            flag = false;
+        }
+
+        if (flag == true)
+            revisionAval(claveAval, clienteId);
+        else
+            swal("Mensaje", mensaje, "warning");
+    });
+    $("#btnLimpiarAval").click(function () {
+        limpiarAval();
+    });
+    $("#txtAval").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: rootUrl + '/Procesos/Contrato/BuscarPersona',
+                dataType: "json",
+                data: {
+                    q: request.term
+                },
+                beforeSend: function (xhr) {
+                    $('#loaderAval').show();
+                },
+                success: function (data) {
+                    //console.log(data);
+                    response($.map(data.data, function (item) {
+                        return {
+                            label: item.clave + "-" + item.nombre_Completo,
+                            value: item.clave + "-" + item.nombre_Completo,
+                            id: item.persona_Id,
+                            clave: item.clave,
+                        };
+                    }));
+
+                    $('#loaderAval').hide();
+                }
+            });
+        },
+        minLength: 5,
+        select: function (event, ui) {
+            $("#aval_Id").val(ui.item.id);
+            $("#clave_Aval").val(ui.item.clave);
+            $("#txtAval").prop("readonly", true);
+        }
+    });
+
+    //Persona modal popup
+    $(".nuevaPersona").click(function () {
+        var options = {
+            "backdrop": "static",
+            keyboard: true
+        };
+
+        $.ajax({
+            type: "POST",
+            url: rootUrl + '/Procesos/Contrato/NuevaPersona',
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            datatype: "html",
+            beforeSend: function (xhr) {
+                $('.theme-loader2').show();
+            },
+            success: function (data) {
+                $('.theme-loader2').hide();
+
+                $('#body-content').html(data);
+                $('#modal-normal').modal(options);
+                $('#modal-normal').modal('show');
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                $('.theme-loader2').hide();
+
+                $('#body-content').html(xhr.responseText);
+                $('#modal-normal').modal(options);
+                $('#modal-normal').modal('show');
+            }
+        });
+    });
+       
+    $("#btnGuardar").click(validarContrato);
+
+    SetSelectedMenu('#menu_NuevoContrato');
+});
+
+function obtenerListaCreditos(id) {
+    if (id == -1)
+        $("#plazo").val("");
+
+    $.ajax({
+        url: rootUrl + '/Procesos/Contrato/ListaTipoCreditos',
+        type: 'POST',
+        data: {
+            serieId: id
+        }
+    }).done(function (response) {
+        var listaTipoCreditos = $("#tipo_creditos_list");
+        listaTipoCreditos.empty();
+
+        $("<option />", {
+            val: -1,
+            text: "Favor de seleccionar un tipo de crédito"
+        }).appendTo(listaTipoCreditos);
+
+        response.data.forEach(function (element) {
+            $("<option />", {
+                val: element.tipo_Credito_Id,
+                text: element.descripcion
+            }).attr('data-plazo', element.plazo)
+                .attr('data-periodicidad', element.periodicidad_Id)
+                .attr('data-interes', element.interes)
+                .attr('data-monto-inicial', element.monto_Inicial)
+                .attr('data-monto-tope', element.monto_Tope)
+                .appendTo(listaTipoCreditos);
+        });
+    });
+}
+
+function revisionCliente(claveCliente, tipoCreditoId) {
+
+    $.ajax({
+        method: "POST",
+        url: rootUrl + '/Procesos/Contrato/RevisionCliente',
+        data: {
+            "claveCliente": claveCliente,
+            "tipoCreditoId": tipoCreditoId
+        },
+        beforeSend: function (xhr) {
+            $('.theme-loader2').show();
+        },
+        success: function (response) {
+            $('#revisionCliente').html('');
+            $('#revisionCliente').html(response);
+
+            $('.autonumber').autoNumeric('init');
+
+            $("#montoSolicitado").blur(calcularAmortizacion);
+
+
+            $('.theme-loader2').hide();
+
+            var mensaje = $("#mensajeCliente").val();
+            console.log($("#bloquearCliente").val());
+            var bloquear = ($("#bloquearCliente").val() == 'True')
+            console.log(bloquear);
+            if (!bloquear)
+                $('#divComandos').show();
+            else
+                $('#divComandos').hide();
+
+            if (mensaje != "") {
+                mensaje = mensaje.replace(/\<br\/>/g, ' ');
+                swal('Mensaje', mensaje, 'warning');
+            }
+                
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            alert(xhr);
+            alert(textStatus);
+            alert(errorThrown);
+            $('.theme-loader2').hide();
+            swal('Oops...', 'Ha occurido un error al buscar la revisión del cliente.', 'error');
+        },
+    });
+}
+
+function limpiarCliente() {
+    $("#cliente_Id").val("0");
+    $("#clave_Cliente").val("");
+    $("#txtCliente").val("");
+    $("#txtCliente").prop("readonly", false);
+
+    $.ajax({
+        method: "POST",
+        url: rootUrl + '/Procesos/Contrato/LimpiarCliente',
+        data: null,
+        beforeSend: function (xhr) {
+            $('.theme-loader2').show();
+        },
+        success: function (response) {
+            $('#revisionCliente').html('');
+            $('#revisionCliente').html(response);
+
+            //setTimeout(function () {
+            $('.theme-loader2').hide();
+            //}, 2000);
+
+            $('#divComandos').hide();
+
+            $("#txtCliente").focus();
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            $('.theme-loader2').hide();
+            swal('Oops...', 'Ha occurido un error al limpiar la información del cliente.', 'error');
+        },
+    });
+}
+
+function calcularAmortizacion() {
+    if ($("#montoSolicitado").val() == "") {
+        $("#hiddenMontoSolicitado").val("");
+        limpiarAmortizacion();
+        return;
+    }
+
+    var nuevo = false;
+    var montoSolicitado = $("#montoSolicitado").val().replace(/[^0-9.-]+/g, "");
+    var hiddenMonto = $("#hiddenMontoSolicitado").val();
+
+    if (parseFloat(montoSolicitado) == parseFloat(hiddenMonto))
+        return;
+
+    var montoPreAutorizado = $("#montoPreAutorizado").val();
+
+    var montoInicial = $("#tipo_creditos_list").find(':selected').attr('data-monto-inicial');
+    var montoTope = $("#tipo_creditos_list").find(':selected').attr('data-monto-tope');
+    var periodicidad = $("#tipo_creditos_list").find(':selected').attr('data-periodicidad');
+    var plazo = $("#tipo_creditos_list").find(':selected').attr('data-plazo');
+    var interes = $("#tipo_creditos_list").find(':selected').attr('data-interes');
+
+    var fecha = $("#fechaInicioCredito").val();
+
+    var montoInteres = parseFloat(montoSolicitado) * (parseFloat(interes) / 100);
+    var abono = ((parseFloat(montoSolicitado) + parseFloat(montoInteres)) / parseFloat(plazo));
+
+    if (montoSolicitado <= 0) {
+        swal('Mensaje', '*El monto solicitado no puede ser cero, favor de verficar.', 'warning');
+        //$("#montoSolicitado").focus();
+        return;
+    }
+
+    if ((montoSolicitado > parseFloat(montoPreAutorizado) && !nuevo)) {
+        swal('Mensaje', '*El monto solicitado excede el monto pre-autorizado,\n favor de verficar.', 'warning');
+        limpiarAmortizacion();
+        //$("#montoSolicitado").focus();
+        return;
+    }
+
+    if ((montoSolicitado < parseFloat(montoInicial) || montoSolicitado > parseFloat(montoTope)) && !nuevo) {
+        //if (gvHistorialCliente.Rows.Count > 0)
+        //{                                    
+        swal('Mensaje', '*El monto pre-autorizado está fuera de rango,\n favor de verficar.', 'warning');
+        limpiarAmortizacion();
+        //$("#montoSolicitado").focus();
+        return;
+        //}
+    }
+
+    $.ajax({
+        method: "POST",
+        url: rootUrl + '/Procesos/Contrato/Amortizacion',
+        data: {
+            "interes": interes,
+            "periodicidad": periodicidad,
+            "plazo": plazo,
+            "monto": montoSolicitado,
+            "fechaCredito": fecha
+        },
+        beforeSend: function (xhr) {
+            $('.theme-loader2').show();
+        },
+        success: function (response) {
+            $('#tablaAmortizacion').html('');
+            $('#tablaAmortizacion').html(response);
+
+            $('#hiddenMontoSolicitado').val(montoSolicitado);
+            $('#abono').val(abono.toFixed(2));
+
+            //setTimeout(function () {
+            $('.theme-loader2').hide();
+            //}, 2000);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            $('.theme-loader2').hide();
+            swal('Oops...', 'Ha occurido un error al generar la tabla de amortización.', 'error');
+        },
+    });
+}
+
+function limpiarAmortizacion() {
+    $("#montoSolicitado").val()
+    $("#hiddenMontoSolicitado").val("");
+    $('#abono').val("");
+
+    $.ajax({
+        method: "POST",
+        url: rootUrl + '/Procesos/Contrato/LimpiarAmortizacion',
+        data: null,
+        //beforeSend: function (xhr) {
+        //    $('.theme-loader2').show();
+        //},
+        success: function (response) {
+            $('#tablaAmortizacion').html('');
+            $('#tablaAmortizacion').html(response);
+
+            //setTimeout(function () {
+            //    $('.theme-loader2').hide();
+            //}, 2000);                  
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            $('.theme-loader2').hide();
+            swal('Oops...', 'Ha occurido un error al limpiar la tabla de amortización.', 'error');
+        },
+    });
+}
+
+function revisionAval(claveAval, clienteId) {
+    $.ajax({
+        method: "POST",
+        url: rootUrl + '/Procesos/Contrato/RevisionAval',
+        data: {
+            "claveAval": claveAval,
+            "clienteId": clienteId
+        },
+        beforeSend: function (xhr) {
+            $('.theme-loader2').show();
+        },
+        success: function (response) {
+            $('#revisionAval').html('');
+            $('#revisionAval').html(response);
+
+            $('.theme-loader2').hide();
+
+            var mensaje = $("#mensajeAval").val();
+            if (mensaje != "") {
+                mensaje = mensaje.replace(/\<br\/>/g, ' ');
+                swal('Mensaje', mensaje, 'warning');
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            $('.theme-loader2').hide();
+            swal('Oops...', 'Ha occurido un error al buscar la revisión del aval.', 'error');
+        },
+    });
+}
+
+function limpiarAval() {
+    $("#aval_Id").val("0");
+    $("#clave_Aval").val("");
+    $("#txtAval").val("");
+    $("#txtAval").prop("readonly", false);
+
+    $.ajax({
+        method: "POST",
+        url: rootUrl + '/Procesos/Contrato/LimpiarAval',
+        data: null,
+        beforeSend: function (xhr) {
+            $('.theme-loader2').show();
+        },
+        success: function (response) {
+            $('#revisionAval').html('');
+            $('#revisionAval').html(response);
+
+            //setTimeout(function () {
+            $('.theme-loader2').hide();
+            //}, 2000);
+
+            $("#txtAval").focus();
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            $('.theme-loader2').hide();
+            swal('Oops...', 'Ha occurido un error al limpiar la información del aval.', 'error');
+        },
+    });
+}
+
+function agregarAval(id, clave, aval, ine, cantidad, limite) {
+    var model = {
+        Persona_Id: id,
+        Clave_Aval: clave,
+        Aval: aval,
+        INE: ine
+    };
+
+    $.ajax({
+        method: "POST",
+        url: rootUrl + '/Procesos/Contrato/AgregarAval',
+        data: {
+            "model": model
+        },
+        //beforeSend: function (xhr) {
+        //    $('.theme-loader2').show();
+        //},
+        success: function (response) {
+            $('#listadoAvales').html('');
+            $('#listadoAvales').html(response);
+
+            limpiarAval();
+            //setTimeout(function () {
+            //    $('.theme-loader2').hide();
+            //}, 2000);                    
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            $('.theme-loader2').hide();
+            swal('Oops...', 'Ha occurido un error al agregar el aval.', 'error');
+        },
+    });
+}
+
+function modalPersona(id) {
+    alert(id);
+}
+
+function eliminarAval(id) {
+    $.ajax({
+        method: "POST",
+        url: rootUrl + '/Procesos/Contrato/EliminarAval',
+        data: {
+            "avalId": id
+        },
+        success: function (response) {
+            $('#listadoAvales').html('');
+            $('#listadoAvales').html(response);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            swal('Oops...', 'Ha occurido un error al eliminar el aval.', 'error');
+        },
+    });
+}
+
+function guardarContrato(tipoCreditoId, serie, folio, grupoId, personaId, monto) {
+
+
+    $.ajax({
+        method: "POST",
+        url: rootUrl + '/Procesos/Contrato/GuardarContrato',
+        data: {
+            "serie": serie,
+            "folio": folio,
+            "tipoCreditoId": tipoCreditoId,
+            "grupoId": grupoId,
+            "personaId": personaId,
+            "monto": monto
+        },
+        beforeSend: function (xhr) {
+            $('.theme-loader2').show();
+            $("#btnGuardar").prop("disabled", true);
+        },
+        success: function (response) {
+            $('.theme-loader2').hide();
+
+            if (response.success) {
+                swal({
+                    title: "Mensaje",
+                    text: response.message,
+                    type: "success"
+                },
+                    function () {
+                        location.href = rootUrl + '/Procesos/Contrato/Nuevo';
+                    });
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            $('.theme-loader2').hide();
+            swal('Oops...', 'Ha occurido un error al guardar el contrato.', 'error');
+        },
+    });
+}
+
+var validarContrato = function () {
+    var flag = true;
+    var mensaje = "";
+    
+    var serie = $("#serie_list option:selected").text();
+    var folio = $("#folio").val();
+    var tipoCreditoId = $("#tipo_creditos_list").val();
+    var grupoId = $("#grupo_Id").val();
+    var personaId = $("#cliente_Id").val();
+    var montoSolicitado = $("#montoSolicitado").val();
+    var monto = 0;
+
+    var qtyAvales = 0;     
+    
+    if ($("#listadoAvales").length)
+        qtyAvales = $("#cantidadAvales").val();
+
+    if (tipoCreditoId == "-1") {
+        mensaje += "*Favor de seleccionar un tipo de crédito\n";
+        flag = false;
+    }
+    if (grupoId == "0") {
+        flag = false;
+        mensaje += '*Favor de seleccionar un grupo\n';
+    }
+    if (personaId == "0") {
+        mensaje += "*Favor de seleccionar un cliente\n";
+        flag = false;
+    }
+    if (montoSolicitado == "") {
+        mensaje += "*Favor de escribir un monto\n";
+        flag = false;
+    }
+    else
+        monto = parseFloat(montoSolicitado.replace(/[^0-9.-]+/g, ""));
+
+    if (parseInt(qtyAvales) == 0) {
+        mensaje += "*Favor de agrega un aval\n";
+        flag = false;
+    }
+
+    if (flag == true) {
+        swal({
+            title: 'Guardar',
+            text: 'Estás seguro(a) de guardar el contrato?',
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#5c90d2',
+            confirmButtonText: 'Aceptar',
+            closeOnConfirm: false,
+            html: false
+        }, function () {
+            guardarContrato(tipoCreditoId, serie, folio, grupoId, personaId, monto);
+        });
+    }
+    else
+        swal("Mensaje", mensaje, "warning");
+}
+
+//<<< Modulo Nueva Persona >>>
+function editarPersona(id, opcion) {
+    var options = {
+        "backdrop": "static",
+        keyboard: true
+    };
+
+    $.ajax({
+        type: "POST",
+        url: rootUrl + '/Procesos/Contrato/EditarPersona',
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data: {
+            "personaId": id,
+            "opcion": opcion
+        },
+        datatype: "html",
+        beforeSend: function (xhr) {
+            $('.theme-loader2').show();
+        },
+        success: function (data) {
+            $('.theme-loader2').hide();
+
+            $('#body-content').html(data);
+            $('#modal-normal').modal(options);
+            $('#modal-normal').modal('show');
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            $('.theme-loader2').hide();
+
+            $('#body-content').html(xhr.responseText);
+            $('#modal-normal').modal(options);
+            $('#modal-normal').modal('show');
+        }
+    });
+}
+
+function validarFormularioPersona () {
+    var opcion = $("#opcion_revision").val();
+    var formPerson = document.querySelector("div#persona_edit");
+    var selectErrors = false;
+    var errors = validate(formPerson, constraintsPerson);
+    // then we update the form to reflect the results
+    showErrors(formPerson, errors || {});
+
+    // Validate select
+    $("#group_messages").empty();
+    
+    var value = $("#persona_groups_list").val();
+    if (value === "0") {
+        $("#group_messages")
+            .append('<p class="text-danger error">Favor de seleccionar un grupo</p>');
+        selectErrors = true;
+    }    
+
+    $("#state_messages").empty();
+    var value = $("#persona_states_list").val();
+    if (value === "0") {
+        $("#state_messages")
+            .append('<p class="text-danger error">Favor de seleccionar un estado</p>');
+        selectErrors = true;
+    }
+
+    $("#status_cliente_messages").empty();
+    var value = $("#persona_status_clients_list").val();
+    if (value === "0") {
+        $("#status_cliente_messages")
+            .append('<p class="text-danger error">Favor de seleccionar un estatus</p>');
+        selectErrors = true;
+    }
+
+    $("#ocupation_messages").empty();
+    var value = $("#persona_ocupations_list").val();
+    if (value === "0") {
+        $("#ocupation_messages")
+            .append('<p class="text-danger error">Favor de seleccionar una ocupación</p>');
+        selectErrors = true;
+    }
+
+    if (!errors && !selectErrors) {
+        swal({
+            id: "confirmModal",
+            title: "Guardar",
+            text: "¿Estás seguro de guardar la información?",
+            type: "info",
+            confirmButtonText: "Aceptar",
+            cancelButtonText: "Cancelar",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function () {
+            SavePersona(opcion);
+        });
+    } else {
+        swal("Mensaje", "*Favor de corregir los errores", "warning");
+        setTimeout(function () {
+            $(".confirm").prop("disabled", false);
+        }, 100);
+    }
+}
+
+//Commands
+function SavePersona(opcion) {
+    var nuevo = false;
+    var persona = {
+        Persona_Id: $("#persona_persona_id").val(),
+        Sucursal_Id: $("#branch_id").val(),
+        Grupo_Id: $("#persona_groups_list").val(),
+        Estado_Id: $("#persona_states_list").val(),
+        Status_Cliente_Id: $("#persona_status_clients_list").val(),
+        Ocupacion_Id: $("#persona_ocupations_list").val(),        
+        Nombre: $("#persona_nombre").val(),
+        Apellido_Paterno: $("#persona_apellido_paterno").val(),
+        Apellido_Materno: $("#persona_apellido_materno").val(),
+        Fecha_Nacimiento: $("#persona_dropper-fecha-nacimiento").val(),        
+        INE: $("#persona_ine").val(),
+        CURP: $("#persona_curp").val(),
+        RFC: $("#persona_rfc").val(),
+        Sexo: ($('#persona_rbMujer').is(":checked") ? "M" : "H"),
+        Telefono1: $("#persona_telefono1").val(),
+        Telefono2: $("#persona_telefono2").val(),
+        Telefono3: $("#persona_telefono3").val(),
+        Monto_PreAutorizado: $("#persona_monto_preautorizado").val(),
+        Nuevo_Monto: $("#persona_nuevo_monto").val(),
+        Email: $("#persona_email").val(),
+        Promotor: $("#persona_edit_promotor").is(":checked")        
+    };    
+    
+    persona.Monto_PreAutorizado = (persona.Nuevo_Monto) ? persona.Nuevo_Monto : persona.Monto_PreAutorizado;
+
+    if (persona.Persona_Id === "0" || persona.Persona_Id === "") {
+        persona.Persona_Id = "-1";
+        nuevo = true;
+    }
+
+    var addresses = new Array();
+    var table = $('#address-table').DataTable();
+    table.data().each(function (d) {
+        var address = {
+            Domicilio_Id: d.domicilio_Id,
+            Persona_Id: d.persona_Id,            
+            Colonia_Id: d.colonia_Id,
+            Calle: d.calle,
+            Numero_Exterior: d.numero_Exterior,
+            Numero_Interior: d.numero_Interior,
+            Estado: d.estado,
+            Municipio: d.municipio,
+            Colonia: d.colonia,
+            Codigo_Postal: d.codigo_Postal,
+            Activo: d.activo
+        };
+        addresses.push(address);
+    });
+
+    $.ajax({
+        method: "POST",
+        url: rootUrl + '/Procesos/Contrato/GuardarPersona',
+        data: {
+            "persona": persona,
+            "domicilios": addresses
+        },
+        beforeSend: function (xhr) {
+            $('.theme-loader2').show();
+        },
+        success: function (response) {
+            $('.theme-loader2').hide();
+
+            if (response.success) {
+                swal('Mensaje', response.message, 'success');
+                $('#modal-normal').modal('hide');
+
+                if (nuevo == false) {
+                    if (opcion == 1)
+                        $("#btnRevisionCliente").click();
+                    else
+                        $("#btnRevisionAval").click();
+                }
+            }
+            else {
+                swal('Oops...', 'Ha occurido un error al guardar la información de la persona. Error: ' +response.message, 'error');
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            $('.theme-loader2').hide();            
+            swal('Oops...', 'Ha occurido un error al guardar la información de la persona. Error: ', 'error');
+        },
+    });   
+} 

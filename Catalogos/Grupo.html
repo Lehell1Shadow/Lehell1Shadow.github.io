@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="Wassana" />
+    <meta name="keywords" content="wassana" />
+    <meta name="author" content="Wassana" />
+    
+    <title>Grupos - Wassana</title>        
+    <!-- google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="/bower_components/waves/css/waves.min.css" />
+    <!-- bootstrap framework -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- sweet alert framework -->
+    <link rel="stylesheet" href="/bower_components/sweetalert/css/sweetalert.css">
+    <!-- themify icon -->
+    <link rel="stylesheet" href="/icon/themify-icons/themify-icons.css">
+    <!-- icofont icon -->
+    <link rel="stylesheet" href="/icon/icofont/css/icofont.css">
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" href="/icon/font-awesome/css/font-awesome-n.min.css" />
+    <link rel="stylesheet" href="/icon/font-awesome/css/font-awesome.min.css" />   
+    <!-- datatable css -->
+    <link rel="stylesheet" href="/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">    
+    <link rel="stylesheet" href="/bower_components/datatables/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">    
+    <!-- datatable extensions css -->
+    <link rel="stylesheet" href="/bower_components/datatables/extensions/buttons/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="/bower_components/datatables/extensions/select/css/select.dataTables.min.css">   
+    <!-- select2 css -->
+    <link rel="stylesheet" href="/bower_components/select2/css/select2.min.css" /> 
+    <!-- switch component css -->
+    <link rel="stylesheet" href="/bower_components/switchery/css/switchery.min.css">
+    <!-- scrollbar.css -->    
+    <link rel="stylesheet" href="/bower_components/mcustomscrollbar/jquery.mcustomscrollbar.css" />
+    <!-- animation nifty modal window effects css -->
+    <link rel="stylesheet" href="/css/component.css">
+
+    
+    <!--flatpickrd calendar css-->
+    <link href="/bower_components/flatpickr/flatpickr.css" rel="stylesheet" />
+
+
+    <!-- main site css -->
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<!-- Pre-loader start -->
+<div class="theme-loader">
+    <div class="loader-track">
+        <div class="preloader-wrapper">
+            <h5 class="loading"><img src="/images/loading.png" /></h5>
+        </div>
+    </div>
+</div>
+<!-- Pre-loader end -->    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+<nav class="navbar header-navbar pcoded-header">
+    <div class="navbar-wrapper">
+        <div class="navbar-logo">
+            <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="javascript:void(0);">
+                <i class="ti-menu"></i>
+            </a>
+            <div class="mobile-search waves-effect waves-light">
+                <div class="header-search">
+                    <div class="main-search morphsearch-search">
+                        <div class="input-group">
+                            <span class="input-group-prepend search-close"><i class="ti-close input-group-text"></i></span>
+                            <input type="text" class="form-control" placeholder="Buscar...">
+                            <span class="input-group-append search-btn"><i class="ti-search input-group-text"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="/">
+                <img class="img-fluid" src="/images/logo.png" alt="Theme-Logo" />
+            </a>
+            <a class="mobile-options waves-effect waves-light">
+                <i class="ti-more"></i>
+            </a>
+        </div>
+
+        <div class="navbar-container container-fluid">
+            <ul class="nav-left">
+                <li>
+                    <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+                </li>               
+                <li>
+                    <a href="javascript:void(0);" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                        <i class="ti-fullscreen"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav-right">
+                <li class="waves-effect waves-light">
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Cerrar sesión" href="/Auth/Login.html">                        
+                        <i class="fa fa-sign-out text-danger"></i> <span>Salir</span>
+                    </a>
+                </li>               
+            </ul>
+        </div>
+    </div>
+</nav>            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+<nav class="pcoded-navbar" pcoded-navbar-position="fixed">
+    <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+    <div class="pcoded-inner-navbar main-menu">
+        <div class="main-menu-header">
+            <img class="img-80" src="/images/avatar.png" alt="">
+            <div class="user-details">
+                <span id="more-details">Token<i class="fa fa-caret-down"></i></span>
+            </div>
+        </div>
+        <div class="main-menu-content">
+            <ul>
+                <li class="more-details">                    
+                    <a class="waves-effect waves-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Cambiar contraseña" href="/Home/CambiarPassword.html">
+                        <i class="ti-lock"></i> Cambiar contraseña
+                    </a>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Cerrar sesión" href="/Auth/Login.html"><i class="fa fa-sign-out text-danger"></i>Salir</a>
+                    <hr />
+                </li>
+            </ul>
+        </div>
+        <div class="text-center p-3">
+            <img src="/images/logo_empresa.png" class="img-fluid" />
+        </div>        
+        <div class="pcoded-navigation-label text-danger f-14">Sucursal</div>
+        <div class="p-l-5 p-r-10">
+            <select id="side-menu-main_sucursales" class="js-select-sucursal"></select>
+        </div>        
+        <div class="pcoded-navigation-label">Principal</div>
+        <ul class="pcoded-item pcoded-left-item">
+            <li id="menu_Inicio" class=" ">
+                <a class="waves-effect waves-dark" href="/">
+                    <span class="pcoded-micon"><i class="ti-home"></i><b>FS</b></span>
+                    <span class="pcoded-mtext">Inicio</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li id="menu_ListadoReportes" class=" ">
+                <a class="waves-effect waves-dark" href="/Home/Reportes.html">
+                    <span class="pcoded-micon"><i class="ti-stats-up"></i><b>RP</b></span>
+                    <span class="pcoded-mtext">Reportes</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+        </ul>
+        <!--Capturista-->
+        <!--Cobranza-->
+        <!--Master or Admin-->
+<div class="pcoded-navigation-label">Créditos</div>
+<ul class="pcoded-item pcoded-left-item">
+    <li id="menu_ListadoContratos" class=" ">
+        <a class="waves-effect waves-dark" href="/Procesos/Contrato/Listado.html">
+            <span class="pcoded-micon"><i class="ti-files"></i><b>LC</b></span>
+            <span class="pcoded-mtext">Contratos</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+    <li id="menu_NuevoContrato" class=" ">
+        <a class="waves-effect waves-dark" href="/Procesos/Contrato/Nuevo.html">
+            <span class="pcoded-micon"><i class="ti-write"></i><b>CN</b></span>
+            <span class="pcoded-mtext">Nuevo contrato</span>
+            <span class="pcoded-badge label label-info">*</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+    <li id="menu_WizardContrato" class=" ">
+        <a class="waves-effect waves-dark" href="/Procesos/Wizard/Contrato.html">
+            <span class="pcoded-micon"><i class="ti-write"></i><b>WCN</b></span>
+            <span class="pcoded-mtext">Nuevo contrato</span>
+            <span class="pcoded-badge label label-primary">Wizard</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+
+    <li class="pcoded-hasmenu">
+        <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="ti-eye"></i><b>R</b></span>
+            <span class="pcoded-mtext">Revisiones</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+        <ul class="pcoded-submenu">
+            <li id="menu_revisionCliente" class=" ">
+                <a class="waves-effect waves-dark" href="/Procesos/Revision/Cliente.html">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Revisión cliente</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li id="menu_revisionAval" class=" ">
+                <a class="waves-effect waves-dark" href="/Procesos/Revision/Aval.html">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Revisión aval</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li id="menu_GoogleDrive" class=" ">
+        <a class="waves-effect waves-dark" href="/Procesos/Documentos.html">
+            <span class="pcoded-micon"><i class="fab fa-google-drive"></i><b>CN</b></span>
+            <span class="pcoded-mtext">Documentos</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+</ul>
+
+<div class="pcoded-navigation-label">Gestión semanal</div>
+    <ul class="pcoded-item pcoded-left-item">
+        <li id="menu_ListadoHojas" class=" ">
+            <a class="waves-effect waves-dark" href="/Procesos/Hoja/Listado.html">
+                <span class="pcoded-micon"><i class="ti-menu-alt"></i><b>HJC</b></span>
+                <span class="pcoded-mtext">Mis registros</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li id="menu_NuevaHoja" class=" ">
+            <a class="waves-effect waves-dark" href="/Procesos/Hoja.html">
+                <span class="pcoded-micon"><i class="ti-money"></i><b>NH</b></span>
+                <span class="pcoded-mtext">Nueva registro</span>
+                <span class="pcoded-badge label label-info">*</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li id="menu_CierreSemanal" class=" ">
+            <a class="waves-effect waves-dark" href="/Procesos/Cierre.html">
+                <span class="pcoded-micon"><i class="ti-briefcase"></i><b>CRR</b></span>
+                <span class="pcoded-mtext">Cierre semanal</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li id="menu_GenerarControles" class=" ">
+            <a class="waves-effect waves-dark" href="/Procesos/Cierre/Controles.html">
+                <span class="pcoded-micon"><i class="ti-settings"></i><b>DEB</b></span>
+                <span class="pcoded-mtext">Generar controles</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+    </ul>
+
+
+    <div class="pcoded-navigation-label">Jurídico</div>
+    <ul class="pcoded-item pcoded-left-item">
+        <li id="menu_ControlAbogado" class=" ">
+            <a class="waves-effect waves-dark" href="/Juridico/Abogado.html">
+                <span class="pcoded-micon"><i class="ti-agenda"></i><b>CJA</b></span>
+                <span class="pcoded-mtext">Control abogado</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li id="menu_ListadoClientesJuridico" class=" ">
+            <a class="waves-effect waves-dark" href="/Juridico/Abogado/Clientes.html">
+                <span class="pcoded-micon"><i class="ti-stats-down"></i><b>LJC</b></span>
+                <span class="pcoded-mtext">Clientes deudores</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li id="menu_ListadoHojasJuridico" class=" ">
+            <a class="waves-effect waves-dark" href="/Juridico/Hoja/Listado.html">
+                <span class="pcoded-micon"><i class="ti-menu-alt"></i><b>HSJ</b></span>
+                <span class="pcoded-mtext">Mis registros</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        <li id="menu_NuevaHojaJuridico" class=" ">
+            <a class="waves-effect waves-dark" href="/Juridico/Hoja.html">
+                <span class="pcoded-micon"><i class="ti-money"></i><b>NHJ</b></span>
+                <span class="pcoded-mtext">Nueva registro</span>
+                <span class="pcoded-badge label label-info">*</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+    </ul>
+
+<div class="pcoded-navigation-label">Ajustes movimientos</div>
+<ul class="pcoded-item pcoded-left-item">
+    <li id="menu_MovimientosCR" class="">
+        <a class="waves-effect waves-dark" href="/CuentasReceptoras/Movimiento.html">
+            <span class="pcoded-micon"><i class="ti-files"></i></span>
+            <span class="pcoded-mtext">Mis movimientos</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+    <li id="menu_NuevoMovimientoCR" class=" ">
+        <a class="waves-effect waves-dark" href="/CuentasReceptoras/Movimiento/Nuevo.html">
+            <span class="pcoded-micon"><i class="ti-file"></i><b>NMCR</b></span>
+            <span class="pcoded-mtext">Nuevo movimiento</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+    <li class="pcoded-hasmenu ">
+        <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="ti-view-grid"></i><b>CTA</b></span>
+            <span class="pcoded-mtext">Catalogos</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+        <ul class="pcoded-submenu">
+            <li id="menu_Conceptos" class="">
+                <a class="waves-effect waves-dark" href="/CuentasReceptoras/Concepto.html">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Conceptos</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li id="menu_TipoCuentaReceptoras" class="">
+                <a class="waves-effect waves-dark" href="/CuentasReceptoras/TipoCuentaReceptora.html">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Tipos de cuenta</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li id="menu_CuentasReceptoras" class="">
+                <a class="waves-effect waves-dark" href="/CuentasReceptoras/CuentaReceptora.html">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Cuentas destinatarios</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+
+<div class="pcoded-navigation-label">Administración</div>
+<ul class="pcoded-item pcoded-left-item">
+    <li class="pcoded-hasmenu ">
+        <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="ti-receipt"></i><b>PG</b></span>
+            <span class="pcoded-mtext">Pagarés</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+        <ul class="pcoded-submenu">
+            <li id="menu_TipoCredito" class="">
+                <a class="waves-effect waves-dark" href="/Catalogos/TipoCredito.html">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Tipo de créditos</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li id="menu_Serie" class="">
+                <a class="waves-effect waves-dark" href="/Catalogos/Serie.html">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Series</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="pcoded-hasmenu">
+        <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="ti-view-grid"></i><b>W</b></span>
+            <span class="pcoded-mtext">Catalogos</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+        <ul class="pcoded-submenu">
+            <li id="menu_Ejecutivo" class="">
+                <a class="waves-effect waves-dark" href="/Catalogos/Ejecutivo.html">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Ejecutivo</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li id="menu_Supervisor" class="">
+                <a class="waves-effect waves-dark" href="/Catalogos/Supervisor.html">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Supervisor</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li id="menu_Grupo" class="">
+                <a class="waves-effect waves-dark" href="/Catalogos/Grupo.html">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Grupo</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li id="menu_Persona" class="">
+                <a class="waves-effect waves-dark" href="/Catalogos/Persona.html">
+                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                    <span class="pcoded-mtext">Personas</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+        </ul>
+    </li>    
+    <li id="menu_Semana" class=" ">
+        <a class="waves-effect waves-dark" href="/Catalogos/Semana.html">
+            <span class="pcoded-micon"><i class="ti-calendar"></i><b>SMN</b></span>
+            <span class="pcoded-mtext">Semanas</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+    <li id="menu_Usuarios" class=" ">
+        <a class="waves-effect waves-dark" href="/Catalogos/Usuario.html">
+            <span class="pcoded-micon"><i class="icofont icofont-users-alt-5 f-20"></i><b>USR</b></span>
+            <span class="pcoded-mtext">Usuarios</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
+</ul>    </div>
+</nav>                    <div class="pcoded-content">
+                        
+
+<!-- Page-header start -->
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="page-header-title">
+                    <h5 class="m-b-10 text-danger">Grupos</h5>
+                    <p class="m-b-0">Administración de grupos</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-action="Index" asp-controller="Home"> <i class="fa fa-home"></i> </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="javascript:void(0);">Catalogos</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="javascript:void(0);">Grupos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<div class="pcoded-inner-content">
+    <!-- Main-body start -->
+    <div class="main-body">
+        <div class="page-wrapper">
+            <!-- Page-body start -->
+            <div class="page-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="icofont icofont-filter m-r-5"></i>Filtros</h5>
+                            </div>
+                            <div class="card-block">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Ejecutivo</label>
+                                    <div class="col-sm-10">
+                                        <select class="js-example-basic-single col-sm-12" data-val="true" data-val-required="The SelectedExecutiveFilter field is required." id="executives_list_filter" name="SelectedExecutiveFilter"><option value="1">JUAN PABLO VALTIERRA</option>
+<option value="12">DIEGO BARAJAS</option>
+<option value="13">CESAR OCTAVIO MU&#xD1;IZ RAMOS</option>
+<option value="14">LUIS RICARDO CISNEROS JUAREZ</option>
+<option value="15">JOSE ISIDORO BORRAYO ESTEVEZ</option>
+<option value="2">GERARDO GARCIA BARAJAS</option>
+<option value="3">NOEMI MOLINA MUNGUIA</option>
+<option value="5">SERGIO CASAREZ</option>
+<option value="6">Juridico</option>
+<option value="8">JAVIER VIDRIO</option>
+</select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Supervisor</label>
+                                    <div class="col-sm-10">
+                                        <select class="js-example-basic-single col-sm-12" data-val="true" data-val-required="The SelectedSupervisorFilter field is required." id="supervisors_list_filter" name="SelectedSupervisorFilter"><option value="1">DIEGO BARAJAS</option>
+<option value="11">ESPECIAL NAYELI</option>
+<option value="15">CERRADO NY</option>
+<option value="16">Juridico</option>
+<option value="21">SANDRA</option>
+<option value="38">NAYELI LOERA</option>
+<option value="40">SUPERVISOR</option>
+<option value="7">CERRADO</option>
+</select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Activo</label>
+                                    <div class="col-sm-10">
+                                        <input id="group_activo_filter" type="checkbox" class="js-switch" checked />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-block">
+                                <div class="dt-responsive table-responsive">
+                                    <table id="ajax-table" class="table table-hover table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Grupo Id</th>
+                                                <th>Sucursal Id</th>
+                                                <th>Supervisor Id</th>
+                                                <th>Persona Id</th>
+                                                <th>Estatus Grupo Id</th>
+                                                <th>Grupo</th>
+                                                <th>Clave</th>
+                                                <th>Status</th>
+                                                <th>Fecha Ingreso</th>
+                                                <th>Comision</th>
+                                                <th>Fijo</th>
+                                                <th>Infonavit</th>
+                                                <th>Limite Credito</th>
+                                                <th>Clave_Promotor</th>
+                                                <th>Promotor</th>
+                                                <th>Jurídico</th>
+                                                <th>Activo</th>
+                                                <th>Usuario Registro</th>
+                                                <th>Usuario Modifico</th>
+                                                <th>Fecha Registro</th>
+                                                <th>Fecha Modificacion</th>
+                                                <th>Clave Ejecutivo</th>
+                                                <th>Ejecutivo</th>
+                                                <th>Clave_Supervisor</th>
+                                                <th>Supervisor</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <!-- Ajax Sourced Data table end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal-flex" id="modal-grupo" role="dialog">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Grupo</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card mb-0">
+                    <form id="group_edit" autocomplete="off" novalidate>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs md-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#general" role="tab">General</a>
+                                <div class="slide"></div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#comisones" role="tab">Comisiones</a>
+                                <div class="slide"></div>
+                            </li>
+                        </ul>
+                        <div class="tab-content card-block">
+                            <div class="tab-pane active" id="general" role="tabpanel">
+
+                                <input type="hidden" id="group_id" value="0">
+                                <input type="hidden" id="status_grupo_id" value="1">
+                                <input type="hidden" id="branch_id" value="1" />
+                                <input type="hidden" id="user_name_session" value="MARTIN BARAJAS" />
+
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label">Supervisor</label>
+                                    <div class="col-lg-10">
+                                        <select class="js-example-basic-single-modal col-sm-12 select-form" data-val="true" data-val-required="The SelectedSupervisor field is required." id="supervisors_list" name="SelectedSupervisor"><option value="0">Favor de seleccionar un supervisor</option>
+<option value="1">DIEGO BARAJAS</option>
+<option value="11">ESPECIAL NAYELI</option>
+<option value="15">CERRADO NY</option>
+<option value="16">Juridico</option>
+<option value="21">SANDRA</option>
+<option value="38">NAYELI LOERA</option>
+<option value="40">SUPERVISOR</option>
+<option value="7">CERRADO</option>
+</select>
+                                        <span id="supervisor_messages" class="messages"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label">Promotor(a)</label>
+                                    <div class="col-lg-10">
+                                        <div class="input-group input-group-button">
+                                            <input id="persona_id" type="hidden" value="0" />
+                                            <input id="clave_Cliente" type="hidden" value="" />
+                                            <input id="txtCliente" type="text" class="form-control form-control-grupo" placeholder="">
+                                            <div class="input-group-append">
+                                                <button id="btnLimpiarPromotor" class="btn btn-info" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Limpiar promotor(a)"><i class="icofont icofont-brush"></i></button>
+                                            </div>
+                                            <div id="loaderCliente" class="preloader3" style="height:auto; display:none">
+                                                <div class="circ1 loader-info"></div>
+                                                <div class="circ2 loader-info"></div>
+                                                <div class="circ3 loader-info"></div>
+                                                <div class="circ4 loader-info"></div>
+                                            </div>
+                                        </div>
+                                        <span id="persona_messages" class="messages"></span>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label">Grupo</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control form-control-grupo" name="descripcion" id="descripcion" placeholder="Favor de introducir una descripción">
+                                        <span class="messages"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label">Fecha ingreso</label>
+                                    <div class="col-lg-10">
+                                        <input name="fecha_ingreso" id="dropper-fecha-ingreso" class="form-control form-control-grupo" type="text" placeholder="Selecciona fecha de ingreso" />
+                                        <span class="messages"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label">Jurídico</label>
+                                    <div class="col-9">
+                                        <input id="group_edit_cartera" type="checkbox" class="js-switch" />
+                                        <span class="messages"></span>
+                                    </div>
+                                </div>                                       
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label">Activo</label>
+                                    <div class="col-9">
+                                        <input id="group_edit_activo" type="checkbox" class="js-switch" checked />
+                                        <span class="messages"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="comisones" role="tabpanel">
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label">Comisión</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control form-control-grupo" name="comision" id="comision" placeholder="Favor de introducir una comisión">
+                                        <span class="messages"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row d-none">
+                                    <label class="col-lg-2 col-form-label">Fijo</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control form-control-grupo" name="fijo" id="fijo" placeholder="Favor de introducir un fijo">
+                                        <span class="messages"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row d-none">
+                                    <label class="col-lg-2 col-form-label">Infonavit</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control form-control-grupo" name="infonavit" id="infonavit" placeholder="Favor de introducir infonavit">
+                                        <span class="messages"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label">Limite de crédito</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control form-control-grupo" name="limite_de_credito" id="limite_de_credito" placeholder="Favor de introducir un limite de crédito">
+                                        <span class="messages"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="confirmChangesModal();">Guardar</button>
+                    <button type="button" class="btn btn-default waves-effect " data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>    
+    <script src="/lib/jquery-ui/dist/jquery-ui.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- waves js -->
+    <script src="/bower_components/waves/js/waves.min.js"></script>
+    <!-- select2 js -->
+    <script src="/bower_components/select2/js/select2.full.min.js"></script>
+    <!-- switch component js -->
+    <script src="/bower_components/switchery/js/switchery.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script src="/bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
+    <!-- modernizr js --> 
+    <script src="/bower_components/modernizr/js/modernizr.js"></script>
+    <!-- customscroll js -->    
+    <script src="/bower_components/mcustomscrollbar/jquery.mcustomscrollbar.concat.min.js"></script>
+
+    <!-- datatables js -->
+    <script src="/bower_components/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/bower_components/datatables/extensions/buttons/js/buttons.flash.min.js"></script>
+
+    <script src="/bower_components/datatables/extensions/buttons/js/jszip.min.js"></script>
+    <script src="/bower_components/datatables/extensions/buttons/js/pdfmake.min.js"></script>
+    <script src="/bower_components/datatables/extensions/buttons/js/vfs_fonts.js"></script>
+
+    <script src="/bower_components/datatables/extensions/buttons/js/buttons.colVis.min.js"></script>  
+    
+    <script src="/bower_components/datatables/js/jszip.min.js"></script>
+    <script src="/bower_components/datatables/js/pdfmake.min.js"></script>
+    <script src="/bower_components/datatables/js/vfs_fonts.js"></script>
+
+    <script src="/bower_components/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/bower_components/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script src="/bower_components/datatables/extensions/select/js/dataTables.select.js"></script>
+
+    <!-- sweet alert js -->
+    <script src="/bower_components/sweetalert/js/sweetalert.min.js"></script>    
+    <!-- modalEffects js nifty modal window effects -->
+    <script src="/js/classie.js"></script>
+    <script type="text/javascript" src="/js/modalEffects.js"></script>
+    <!-- menu template js -->
+    <script src="/js/pcoded.min.js"></script>
+    <script src="/js/vertical-layout.min.js"></script>
+    <!-- Validation js -->
+    <script type="text/javascript" src="/bower_components/form-validation/validate.js"></script>
+    <!-- custom js -->    
+    <script src="/js/site.min.js"></script>
+    <script src="/js/script.min.js"></script>
+    <script>
+        rootUrl = ''
+    </script>
+    
+    <script src="/bower_components/flatpickr/flatpickr.min.js"></script>
+    <script type="text/javascript" src="/js/catalogo/grupo.js"></script>
+
+</body>
+</html>
+ 

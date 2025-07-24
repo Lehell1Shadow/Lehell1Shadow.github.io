@@ -1,0 +1,58 @@
+.captcha {
+	height: 30px;
+	width: 170px;
+	margin: 15px 0;
+}
+
+	.captcha span {
+		float: right;
+		line-height: 30px;
+		font-size: 11pt;
+		font-weight: bolder;
+	}
+
+	.captcha .check {
+		border-radius: 3px;
+		width: 30px;
+		height: 30px;
+		border: 3px solid #038f9e;
+		display: inline;
+		position: absolute;
+		cursor: pointer;
+	}
+
+/*Styles for check animation*/
+.check .wrapper {
+	width: 25px;
+	display: inline;
+	margin: 4em auto 0;
+}
+
+.check .checkmark {
+	stroke: #038f9e;
+	stroke-dashoffset: 745.74853515625;
+	stroke-dasharray: 745.74853515625;
+	-webkit-animation: dash 2s ease-out forwards;
+	animation: dash 2s ease-out forwards;
+}
+
+@-webkit-keyframes dash {
+	0% {
+		stroke-dashoffset: 745.74853515625;
+	}
+
+	100% {
+		stroke-dashoffset: 0;
+	}
+}
+
+@keyframes dash {
+	0% {
+		stroke-dashoffset: 745.74853515625;
+	}
+
+	100% {
+		stroke-dashoffset: 0;
+	}
+}
+/*End check animation*/
