@@ -1,97 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="description" content="Peter" />
-    <meta name="keywords" content="Peter" />
-    <meta name="author" content="Peter" />
-
-    <title>Login - Peter</title>
-
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <!-- bootstrap framework -->
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <!-- ico font -->    
-    <link rel="stylesheet" href="/icon/ico-fonts/css/icofont.css" />
-    <link rel="stylesheet" href="/icon/icofont/css/icofont.css" />
-    <!-- mycustom css-->
-    <link rel="stylesheet" href="/css/authentication.css?v=jx5-IcR5-BSPHQpopJOe6rW--nbFMm0vWIZu-YBRwpc" />    
-    
-    <!-- sweet alert framework -->
-    <link rel="stylesheet" href="/bower_components/sweetalert/css/sweetalert.css" />
-    <!-- captcha css-->
-    <link rel="stylesheet" href="/bower_components/captcha/style.css" />
-
+    <meta charset="UTF-8">
+    <title>Login - Skyline</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
-<body>    
-    
-<div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper">
-        <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
-            <div class="row flex-grow">
-                <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <div class="auth-form-transparent text-left p-3">
-                        <div class="brand-logo text-center my-3">                            
-                            <img src="/images/logo_green_big.png" class="img-fluid" alt="logo" />
-                        </div>                        
-                        <form method="post" class="login pt-3" autocomplete="off" novalidate>
-                            <div class="form-group">
-                                <label class="form-label text-muted">Usuario</label>
-                                <input class="form-control text-box single-line" data-val="true" data-val-required="*Favor de ingresar su nombre de usuario" id="Username" name="Username" required="" type="text" value="" />
-                                <span class="text-danger field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label text-muted">Contraseña</label>
-                                <input class="form-control text-box single-line password" data-val="true" data-val-required="*Favor de ingresar su contrase&#xF1;a" id="Password" name="Password" required="" type="password" />
-                                <span class="text-danger field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
-                            </div>
-                            <div class="my-3 d-flex justify-content-between align-items-center">                                
-                                <div class="captcha">                                    
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" data-val="true" data-val-required="The RememberMe field is required." id="RememberMe" name="RememberMe" value="true" />
-                                    <label class="form-check-label text-muted" for="RememberMe">Recuerdame</label>
-                                </div>                                                             
-                            </div>
-                            <div class="my-4">                                
-                                <input type="submit" class="btn btn-info btn-md btn-block waves-effect waves-light text-center m-b-20" value="Iniciar sesión" formaction="/Auth/Login" />
-                                
-                            </div>                            
-                            <div class="text-center mt-4 fw-light">
-                                <img src="/images/logo_empresa.png" class="img-fluid" />
-                                <p class="font-weight-medium fw-light d-block d-lg-none mt-2">Copyright &copy; 2025  All rights reserved.</p>                                
-                            </div>
-                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8BtwevvG4-9PgunCNCF7aNL9KESS-IPECQbiIgvIT4305MIiFjTty4mkgPxiwFeM8Bu_T9UhkbFzsy9OejnWXDkgWT6D4NYwVoyrDkBhrJ8qwqIx47R8OFisDqx0fu3AJuT4e3HZiExIX4ZhheP69sA" /><input name="RememberMe" type="hidden" value="false" /></form>
-                    </div>
-                </div>
-                <div class="col-lg-6 login-half-bg d-flex flex-row d-none d-lg-inline-flex">
-                    <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2025  All rights reserved.</p>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h3 class="text-center mb-4">Inicio de sesión</h3>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                      {% if messages %}
+                        {% for category, message in messages %}
+                          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                              {{ message }}
+                              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %} 
+                    <form method="POST" action="/login">
+                        <div class="mb-3">
+                            <label>Usuario</label>
+                            <input type="text" class="form-control" name="Username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Contraseña</label>
+                            <input type="password" class="form-control" name="Password" required>
+                        </div>
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                        </div>
+                    </form>
+                    <form method="POST" action="/registro">
+                        <hr>
+                        <p class="text-center">¿No tienes cuenta?</p>
+                        <div class="mb-3">
+                            <label>Usuario nuevo</label>
+                            <input type="text" class="form-control" name="Username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Contraseña nueva</label>
+                            <input type="password" class="form-control" name="Password" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Registrarse</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- content-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
 </div>
-<!-- container-scroller -->
 
-
-
-    <script src="/lib/jquery/dist/jquery.min.js"></script>
-    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>    
-        
-    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>    
-    <script src="/bower_components/sweetalert/js/sweetalert.min.js"></script>
-    <script src="/bower_components/captcha/captcha.jquery.js"></script>
-
-    <script type="text/javascript">
-        $('.login').captcha();
-    </script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
