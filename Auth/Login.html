@@ -9,22 +9,17 @@
     <meta name="keywords" content="Peter" />
     <meta name="author" content="Peter" />
 
-    <title>Login - Skyline</title>
+    <title>Login - Peter</title>
 
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <!-- bootstrap framework -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlalDLs5o0ZBUvGt0S7/pyd3Yf+T3p+5z+fW7lB1S1+aD8B6v0F3/n/aR0s00Q5Z5aQ5p6B5G5p5+p5+q5A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <!-- ico font -->    
     <link rel="stylesheet" href="/icon/ico-fonts/css/icofont.css" />
     <link rel="stylesheet" href="/icon/icofont/css/icofont.css" />
-    <!-- mycustom css-->
-    <link rel="stylesheet" href="/css/authentication.css?v=jx5-IcR5-BSPHQpopJOe6rW--nbFMm0vWIZu-YBRwpc" />    
-    
-    <!-- sweet alert framework -->
     <link rel="stylesheet" href="/bower_components/sweetalert/css/sweetalert.css" />
-    <!-- captcha css-->
     <link rel="stylesheet" href="/bower_components/captcha/style.css" />
+    <link rel="stylesheet" href="/css/modern-authentication.css?v=1.0" /> 
+    
 
 </head>
 <body>    
@@ -33,55 +28,36 @@
     <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
             <div class="row flex-grow">
-                <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                    <div class="auth-form-transparent text-left p-3">
-                        <div class="brand-logo text-center my-3">                            
-                            <img src="/images/logo_green_big.png" class="img-fluid" alt="logo" />
-                        </div>                        
-                        <form method="post" class="login pt-3" autocomplete="off" novalidate>
-                            <div class="form-group">
-                                <label class="form-label text-muted">Usuario</label>
-                                <input class="form-control text-box single-line" data-val="true" data-val-required="*Favor de ingresar su nombre de usuario" id="Username" name="Username" required="" type="text" value="" />
-                                <span class="text-danger field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                <div class="col-lg-6 d-flex align-items-center justify-content-center login-form-col"> <div class="auth-form-transparent text-left p-4 p-md-5 rounded shadow-lg login-card"> <div class="brand-logo text-center my-4">                            
+                            <img src="/images/logo_green_big.png" class="img-fluid" alt="logo" style="max-height: 80px;" /> </div>                        
+                        <h4 class="text-center text-dark mb-4">¡Bienvenido de nuevo!</h4> <form method="post" class="login pt-3" autocomplete="off" novalidate>
+                            <div class="form-group mb-4"> <label class="form-label text-muted d-flex align-items-center"><i class="fa fa-user me-2 text-primary"></i> Usuario</label> <input class="form-control text-box single-line form-control-lg border-0 border-bottom rounded-0" data-val="true" data-val-required="*Favor de ingresar su nombre de usuario" id="Username" name="Username" required="" type="text" value="" placeholder="Ingrese su usuario" /> <span class="text-danger field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label text-muted">Contraseña</label>
-                                <input class="form-control text-box single-line password" data-val="true" data-val-required="*Favor de ingresar su contrase&#xF1;a" id="Password" name="Password" required="" type="password" />
-                                <span class="text-danger field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                            <div class="form-group mb-4"> <label class="form-label text-muted d-flex align-items-center"><i class="fa fa-lock me-2 text-primary"></i> Contraseña</label> <input class="form-control text-box single-line password form-control-lg border-0 border-bottom rounded-0" data-val="true" data-val-required="*Favor de ingresar su contrase&#xF1;a" id="Password" name="Password" required="" type="password" placeholder="Ingrese su contraseña" /> <span class="text-danger field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
                             </div>
-                            <div class="my-3 d-flex justify-content-between align-items-center">                                
-                                <div class="captcha">                                    
+                            <div class="my-3 d-flex justify-content-between align-items-center flex-wrap"> <div class="captcha mt-2 mt-sm-0">                                    
                                 </div>
-                                <div class="form-check">
+                                <div class="form-check mt-2 mt-sm-0">
                                     <input type="checkbox" class="form-check-input" data-val="true" data-val-required="The RememberMe field is required." id="RememberMe" name="RememberMe" value="true" />
-                                    <label class="form-check-label text-muted" for="RememberMe">Recuerdame</label>
+                                    <label class="form-check-label text-muted" for="RememberMe">Recuérdame</label>
                                 </div>                                                             
                             </div>
                             <div class="my-4">                                
-                                <input type="submit" class="btn btn-info btn-md btn-block waves-effect waves-light text-center m-b-20" value="Iniciar sesión" formaction="/Auth/Login" />
-                                
-                            </div>                            
+                                <input type="submit" class="btn btn-primary btn-lg btn-block shadow-sm animate__animated animate__pulse animate__infinite" value="Iniciar sesión" formaction="/Auth/Login" /> </div>                            
                             <div class="text-center mt-4 fw-light">
-                                <img src="/images/logo_empresa.png" class="img-fluid" />
-                                <p class="font-weight-medium fw-light d-block d-lg-none mt-2">Copyright &copy; 2025  All rights reserved.</p>                                
+                                <img src="/images/logo_empresa.png" class="img-fluid" style="max-height: 50px;" /> <p class="font-weight-medium fw-light mt-3 text-muted">Copyright &copy; 2025  All rights reserved.</p>                                
                             </div>
                         <input name="__RequestVerificationToken" type="hidden" value="CfDJ8BtwevvG4-9PgunCNCF7aNL9KESS-IPECQbiIgvIT4305MIiFjTty4mkgPxiwFeM8Bu_T9UhkbFzsy9OejnWXDkgWT6D4NYwVoyrDkBhrJ8qwqIx47R8OFisDqx0fu3AJuT4e3HZiExIX4ZhheP69sA" /><input name="RememberMe" type="hidden" value="false" /></form>
                     </div>
                 </div>
-                <div class="col-lg-6 login-half-bg d-flex flex-row d-none d-lg-inline-flex">
-                    <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2025  All rights reserved.</p>
-                </div>
+                <div class="col-lg-6 login-half-bg d-flex flex-column justify-content-center align-items-center p-5 text-white"> <h2 class="display-4 text-center mb-4 animate__animated animate__fadeInDown">Bienvenido a Peter</h2>
+                    <p class="lead text-center mb-5 animate__animated animate__fadeInUp">Gestiona tus procesos de forma eficiente y segura.</p>
+                    <img src="silhouette-city-landscape-modern-building-architecture-urban-cityscape-vector.png" class="img-fluid modern-lion-logo animate__animated animate__zoomIn" alt="Peter Logo" style="max-width: 300px;"> <p class="text-white font-weight-medium text-center mt-auto">Copyright &copy; 2025 All rights reserved.</p> </div>
             </div>
         </div>
-        <!-- content-wrapper ends -->
+        </div>
     </div>
-    <!-- page-body-wrapper ends -->
-</div>
-<!-- container-scroller -->
-
-
-
-    <script src="/lib/jquery/dist/jquery.min.js"></script>
+<script src="/lib/jquery/dist/jquery.min.js"></script>
     <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>    
         
     <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -92,6 +68,6 @@
     <script type="text/javascript">
         $('.login').captcha();
     </script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </body>
 </html>

@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skyline Exp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+    }
+    .navbar {
+      background-color: #1f2937;
+      color: white;
+    }
+    .navbar a, .navbar i {
+      color: white !important;
+    }
+    .sidebar {
+      background-color: #111827;
+      height: 100vh;
+      width: 240px;
+      padding-top: 1rem;
+      position: fixed;
+    }
+    .sidebar a {
+      color: #d1d5db;
+      display: block;
+      padding: 0.75rem 1.25rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .sidebar a:hover {
+      background-color: #1f2937;
+      color: white;
+    }
+    .main-content {
+      margin-left: 240px;
+      padding: 2rem;
+    }
+    .page-header-title h5 {
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg shadow-sm px-3 sticky-top">
+    <a class="navbar-brand" href="#"><i class="bi bi-house-door-fill"></i> Skyline</a>
+    <div class="ms-auto">
+      <a href="/Auth/Login.html" class="btn btn-outline-light btn-sm"><i class="bi bi-box-arrow-right"></i> Salir</a>
+    </div>
+  </nav>
+
+  <!-- Sidebar y contenido -->
+  <div class="d-flex">
+    <aside class="sidebar">
+      <a href="/(Indice).html"><i class="bi bi-speedometer2"></i> Inicio</a>
+      <a href="/Home/Reportes.html"><i class="bi bi-bar-chart-line"></i> Reportes</a>
+      <a href="/Procesos/Contrato/Listado.html"><i class="bi bi-file-earmark-text"></i> Contratos</a>
+      <a href="/Procesos/Wizard/Contrato.html"><i class="bi bi-magic"></i> Nuevo contrato</a>
+      <a href="/Procesos/Documentos.html"><i class="bi bi-folder2-open"></i> Documentos</a>
+    </aside>
+
+    <main class="main-content flex-grow-1">
+      <div class="page-header-title">
+        <h5 class="text-dark">¡Hora de Trabajar!</h5>
+        <p class="text-muted">Exp. Skyline</p>
+      </div>
+      <div class="text-center mt-5">
+        <img src="/images/homepage.png" alt="inicio" class="img-fluid" style="max-height: 300px;">
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts modernos -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
