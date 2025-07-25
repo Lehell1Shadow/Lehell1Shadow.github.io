@@ -1,0 +1,271 @@
+/* modern-authentication.css */
+
+/* Estilos para el cuerpo de la página */
+body {
+    font-family: 'Open Sans', sans-serif; /* Asegura que la fuente se aplique */
+    background-color: #f0f2f5; /* Un color de fondo suave */
+    overflow: hidden; /* Evita barras de desplazamiento no deseadas */
+}
+
+.container-scroller {
+    min-height: 100vh;
+    display: flex; /* Para asegurar que el contenido se estire */
+}
+
+.page-body-wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-img-bg {
+    background: linear-gradient(to right, #ffffff, #f8f9fa); /* Degradado blanco/gris claro para el fondo del formulario */
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1200px; /* Limita el ancho total del contenedor de login */
+}
+
+/* Estilos para la columna del formulario */
+.login-form-col {
+    background-color: #ffffff; /* Fondo blanco para el lado del formulario */
+    padding: 30px;
+}
+
+.login-card {
+    background-color: #fff;
+    padding: 2.5rem; /* Aumenta el padding interno */
+    border-radius: 15px; /* Más redondeado */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra más suave y moderna */
+    width: 100%;
+    max-width: 450px; /* Limita el ancho del formulario */
+    transition: all 0.3s ease-in-out; /* Transición suave */
+}
+
+.login-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Sombra ligeramente más pronunciada al pasar el ratón */
+}
+
+.brand-logo img {
+    max-height: 90px; /* Ajusta el tamaño del logo */
+    margin-bottom: 20px; /* Espacio debajo del logo */
+}
+
+h4.text-center.text-dark {
+    font-weight: 700;
+    color: #333 !important; /* Color de texto más oscuro para el título */
+    margin-bottom: 2rem;
+}
+
+/* Estilos de los campos de formulario */
+.form-group label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #555 !important;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    border-bottom: 2px solid #ddd !important; /* Borde inferior más pronunciado */
+    padding: 0.75rem 0.5rem; /* Aumenta el padding */
+    font-size: 1.05rem;
+    color: #333;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #007bff !important; /* Color de enfoque de Bootstrap primary */
+    box-shadow: none !important; /* Elimina la sombra de enfoque predeterminada de Bootstrap */
+    background-color: #fdfdfd;
+}
+
+/* Estilos del botón */
+.btn-primary {
+    background-image: linear-gradient(to right, #007bff 0%, #0056b3 100%); /* Degradado para el botón */
+    border: none;
+    padding: 0.9rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px; /* Botón más redondeado (píldora) */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.btn-primary:hover {
+    background-image: linear-gradient(to right, #0056b3 0%, #007bff 100%);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+    transform: translateY(-2px); /* Pequeña elevación al pasar el ratón */
+}
+
+.btn-primary:active {
+    transform: translateY(0); /* Vuelve a la posición original al hacer clic */
+}
+
+/* Checkbox "Recuérdame" */
+.form-check-input {
+    margin-top: 0.3rem;
+}
+.form-check-label {
+    font-size: 0.9rem;
+    color: #777 !important;
+}
+
+/* Mensajes de validación */
+.field-validation-valid {
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block; /* Asegura que cada mensaje esté en su propia línea */
+}
+
+/* Captcha - Puedes necesitar ajustar esto según tu implementación de captcha */
+.captcha {
+    /* Estilos para el contenedor del captcha */
+    margin-bottom: 1rem;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 200px; /* Limita el ancho del captcha si es necesario */
+}
+/* Si el captcha tiene una imagen o texto específico dentro, podrías necesitar más reglas aquí */
+.captcha canvas, .captcha img {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+
+
+/* Estilos para el lado de la imagen de fondo (derecha) */
+.login-half-bg {
+    background-image: url('/images/breadcrumb-bg.gif'); /* Ruta a tu imagen de la ciudad/paisaje */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Necesario para la superposición */
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra para el texto */
+    padding: 3rem; /* Padding interno */
+    min-height: 400px; /* Altura mínima para asegurar que se vea la imagen */
+}
+
+/* Superposición oscura para el fondo */
+.login-half-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Superposición oscura semi-transparente */
+    z-index: 1; /* Asegura que la superposición esté por encima de la imagen */
+}
+
+.login-half-bg > * { /* Asegura que el contenido esté por encima de la superposición */
+    position: relative;
+    z-index: 2;
+}
+
+.login-half-bg .display-4 {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.login-half-bg .lead {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    max-width: 80%;
+}
+
+.modern-lion-logo {
+    max-width: 250px; /* Ajusta el tamaño de la imagen del león */
+    margin-top: 2rem;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3)); /* Sombra para el logo */
+}
+
+.login-half-bg .mt-auto {
+    margin-top: auto; /* Empuja el copyright hacia abajo */
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Ocultar elementos en móviles si no son necesarios */
+.d-lg-none {
+    display: none !important;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 991.98px) {
+    .auth-img-bg {
+        flex-direction: column;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .login-form-col {
+        width: 100%;
+        max-width: none;
+        padding: 20px;
+    }
+
+    .login-half-bg {
+        height: 250px; /* Altura más pequeña para móviles */
+        padding: 2rem;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .login-half-bg .display-4 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .login-half-bg .lead {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .modern-lion-logo {
+        max-width: 150px;
+        margin-top: 1rem;
+    }
+
+    .login-card {
+        padding: 1.5rem;
+        margin-top: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .my-3.d-flex.justify-content-between.align-items-center {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .captcha, .form-check {
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .login-card {
+        padding: 1rem;
+    }
+
+    .btn-primary {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .form-control {
+        font-size: 0.95rem;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
+    }
+    
+    .brand-logo img {
+        max-height: 70px;
+    }
+}
