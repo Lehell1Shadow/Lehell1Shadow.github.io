@@ -1,0 +1,24 @@
+CREATE DATABASE IF NOT EXISTS juridico_db;
+USE juridico_db;
+
+CREATE TABLE abogados (
+    juridico_Id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_Cliente VARCHAR(255) NOT NULL,
+    ine VARCHAR(50),
+    grupo VARCHAR(100),
+    fecha_Entrega_Documento DATE,
+    fecha_Diligencia DATE,
+    monto_Adeudo DECIMAL(12,2) DEFAULT 0,
+    monto_Abogado DECIMAL(12,2) DEFAULT 0,
+    monto_Convenio DECIMAL(12,2) DEFAULT 0,
+    embargo_Bienes VARCHAR(255),
+    descripcion_Bienes TEXT,
+    comentario TEXT,
+    garantia BOOLEAN DEFAULT 0
+);
+
+INSERT INTO abogados 
+(nombre_Cliente, ine, grupo, fecha_Entrega_Documento, fecha_Diligencia, monto_Adeudo, monto_Abogado, monto_Convenio, embargo_Bienes, descripcion_Bienes, comentario, garantia)
+VALUES
+('Juan Pérez', 'INE123456', 'Grupo A', '2025-08-01', '2025-08-05', 15000.00, 2000.00, 5000.00, 'Auto', 'Toyota Corolla 2015', 'En espera de resolución', 1),
+('María López', 'INE789012', 'Grupo B', '2025-07-20', '2025-07-25', 8000.00, 1500.00, 3000.00, 'Casa', 'Casa de 2 pisos en el centro', 'Caso en revisión', 0); 
