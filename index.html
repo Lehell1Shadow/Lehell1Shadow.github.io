@@ -386,7 +386,6 @@
             align-items: center;
             flex-direction: column;
             padding: 20px;
-            overflow: hidden;
         }
         
         .scanner-content {
@@ -397,7 +396,6 @@
             max-width: 450px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
         }
         
         .scanner-frame {
@@ -1027,44 +1025,6 @@
             margin-top: 10px;
             font-size: 0.8rem;
             color: #28a745;
-        }
-
-        /* Mejoras para el scroll en orientación vertical */
-        @media (max-width: 768px) and (orientation: portrait) {
-            .scanner-content {
-                max-height: 85vh;
-                overflow-y: auto;
-                padding: 15px 10px;
-            }
-            
-            .scanner-frame {
-                height: 180px;
-                margin: 10px auto;
-            }
-            
-            .scanner-actions {
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .scanner-actions .btn {
-                width: 100%;
-                margin: 2px 0;
-            }
-        }
-
-        /* Mejorar la experiencia táctil para scroll */
-        .scanner-content {
-            -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
-        }
-
-        /* Asegurar que el contenido sea desplazable */
-        .scanner-container {
-            overflow: hidden;
-        }
-
-        .scanner-content {
-            overflow-y: auto;
         }
     </style>
 </head>
@@ -1937,14 +1897,8 @@
             checkbox.addEventListener('change', function() {
                 if (this.checked) {
                     scannerModal.classList.add('active');
-                    // Ajustar altura inicial
-                    adjustScannerContainerHeight();
                 } else {
                     scannerModal.classList.remove('active');
-                    // Restablecer estilos
-                    const scannerContent = document.querySelector('.scanner-content');
-                    scannerContent.style.maxHeight = 'none';
-                    scannerContent.style.overflowY = 'visible';
                 }
             });
             
@@ -1954,18 +1908,12 @@
             } else {
                 window.addEventListener('orientationchange', handleOrientationChange);
             }
-            
-            // También detectar cambios de tamaño de ventana
-            window.addEventListener('resize', adjustScannerContainerHeight);
         }
 
-        // Función para manejar cambios de orientación y ajustar la UI
+        // Manejar cambios de orientación
         function handleOrientationChange() {
             const scannerModal = document.getElementById('scannerModal');
             if (!scannerModal.style.display || scannerModal.style.display === 'none') return;
-            
-            // Ajustar la altura del contenedor del scanner para permitir scroll
-            adjustScannerContainerHeight();
             
             // Reconfigurar la cámara si está activa
             if (scannerStream) {
@@ -1976,32 +1924,12 @@
             }
         }
 
-        // Ajustar la altura del contenedor del scanner
-        function adjustScannerContainerHeight() {
-            const scannerContainer = document.getElementById('scannerModal');
-            const scannerContent = document.querySelector('.scanner-content');
-            
-            // En orientación vertical, limitar la altura para permitir scroll
-            if (window.innerHeight > window.innerWidth) {
-                // Orientación vertical
-                scannerContent.style.maxHeight = '85vh';
-                scannerContent.style.overflowY = 'auto';
-            } else {
-                // Orientación horizontal
-                scannerContent.style.maxHeight = 'none';
-                scannerContent.style.overflowY = 'visible';
-            }
-        }
-
         // Función mejorada para abrir el scanner
         function openScanner(target) {
             currentScannerTarget = target;
             const scannerModal = document.getElementById('scannerModal');
             scannerModal.style.display = 'flex';
             resetScannerUI();
-            
-            // Ajustar altura inicial
-            adjustScannerContainerHeight();
             
             const title = document.getElementById('scanner-title');
             const description = document.getElementById('scanner-description');
@@ -2069,9 +1997,6 @@
                 const scannerModal = document.getElementById('scannerModal');
                 scannerModal.classList.add('capturing');
                 
-                // Ajustar la altura del contenedor
-                adjustScannerContainerHeight();
-                
                 // Primero intentar con la cámara trasera (environment)
                 let constraints = { 
                     video: { 
@@ -2094,7 +2019,8 @@
                 video.srcObject = scannerStream;
                 video.style.display = 'block';
                 
-                // Configurar para escanear en cualquier orientación SIN efecto espejo
+                // Configurar para escanear en cualquier orientación
+                video.style.transform = 'scaleX(-1)'; // Espejo para mejor experiencia
                 video.setAttribute('playsinline', 'true');
                 
                 // Ajustar según la orientación del dispositivo
@@ -2121,40 +2047,28 @@
             function handleOrientation() {
                 const orientation = window.screen.orientation || window.orientation;
                 
-                // Eliminar el efecto espejo y ajustar según la orientación
-                video.style.transform = 'none';
-                
                 if (window.screen.orientation) {
                     switch(window.screen.orientation.type) {
                         case 'landscape-primary':
-                            // No aplicar transformación para orientación landscape normal
+                            video.style.transform = 'scaleX(-1)';
                             break;
                         case 'landscape-secondary':
-                            // Rotar 180 grados para landscape invertido
-                            video.style.transform = 'rotate(180deg)';
+                            video.style.transform = 'scaleX(1)';
                             break;
                         case 'portrait-primary':
-                            // Rotar 90 grados para portrait normal
-                            video.style.transform = 'rotate(90deg)';
-                            break;
                         case 'portrait-secondary':
-                            // Rotar -90 grados para portrait invertido
-                            video.style.transform = 'rotate(-90deg)';
+                            video.style.transform = 'scaleX(-1)';
                             break;
                     }
                 } else if (window.orientation) {
                     switch(window.orientation) {
                         case 0: // Portrait
-                            video.style.transform = 'rotate(90deg)';
-                            break;
                         case 180: // Portrait upside down
-                            video.style.transform = 'rotate(-90deg)';
+                            video.style.transform = 'scaleX(-1)';
                             break;
                         case 90: // Landscape left
-                            // No aplicar transformación
-                            break;
                         case -90: // Landscape right
-                            video.style.transform = 'rotate(180deg)';
+                            video.style.transform = 'scaleX(1)';
                             break;
                     }
                 }
@@ -4115,9 +4029,6 @@
             
             // Detectar capacidades del dispositivo
             detectDeviceCapabilities();
-            
-            // Configurar manejo de orientación
-            setupOrientationSupport();
             
             // Inicializar Google Maps de forma más robusta
             initializeGoogleMapsWithRetry();
